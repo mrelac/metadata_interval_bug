@@ -2,11 +2,30 @@
 
 ## Bug:
 `IcyMetadata.Info` can be stale (e.g. doesn't match `IcyMetadata.Headers`)
-## Possibly related bugs:
+## Possibly related tickets:
+[102](https://github.com/ryanheise/just_audio/issues/102), [78](https://github.com/ryanheise/just_audio/pull/78)
 
+## Expected Behaviour:
+The `IcyMetadata.info` for the same stream should not return the results of the previous [different] stream's `info`.
 
 ## Platform:
 Discovered on _Android_ platform. Not verified on any other platform.
+
+## Flutter version: 3.3.7
+```
+[√] Flutter (Channel stable, 3.3.7, on Microsoft Windows [Version 10.0.19044.2130], locale en-GB)
+[√] Android toolchain - develop for Android devices (Android SDK version 32.0.0)
+[√] Chrome - develop for the web
+[X] Visual Studio - develop for Windows
+    X Visual Studio not installed; this is necessary for Windows development.
+      Download at https://visualstudio.microsoft.com/downloads/.
+      Please install the "Desktop development with C++" workload, including all of its default components
+[√] Android Studio (version 2021.3)
+[√] VS Code (version 1.63.2)
+[√] VS Code, 64-bit edition (version 1.73.0)
+[√] Connected device (4 available)
+[√] HTTP Host Availability
+```
 
 ## Developer reporting bug:
 Mike Relac
@@ -38,7 +57,7 @@ Steps are:
 Is it possible that the `IcyMetadata.Headers.metadataInterval` value of **-1** is being used to load the `info` content and is causing the previous stream's data to be returned? I have not yet found the underlying code to check but would be glad to help, given some direction on where to look
 
 ## Flutter console info output
-### Step 1, Fresh run, WETF selected (url https://ssl-proxy.icastcenter.com/get.php?type=Icecast&server=199.180.72.2&port=9007&mount=/stream&data=mp3). Notice the last line - 'Icy info is null'.
+### Step 1, Fresh run of app, WETF selected (url https://ssl-proxy.icastcenter.com/get.php?type=Icecast&server=199.180.72.2&port=9007&mount=/stream&data=mp3). Notice the last line - 'Icy info is null'.
 ```
 I/flutter ( 7864): 2022-11-07 18:07:05.052154: icyMetadata:
 I/flutter ( 7864): icy headers: bitrate: 128000
@@ -86,7 +105,7 @@ I/flutter ( 7864): icy info: title:
 I/flutter ( 7864): icy info: url: null
 ```
 
-### Step 4 - WETF selected again. Notice the last two lines: again, `icy.info` is not null, and `info.title` contains the *empty* title (song) from WDCB above.
+### Step 5 - WETF selected again. Notice the last two lines: again, `icy.info` is not null, and `info.title` contains the *empty* title (song) from WDCB above.
 ```
 I/flutter ( 7864): 2022-11-07 18:08:41.010954: icyMetadata:
 I/flutter ( 7864): icy headers: bitrate: 128000
