@@ -9,13 +9,12 @@ Discovered on _Android_ platform. Not verified on any other platform.
 ## Developer reporting bug:
 Mike Relac
 
-## Test project that shows behaviour:
-
 ## Description:
-Certain `IcyMetadata` streams served up by `JustAudio` can become out-of-sync such that the `IcyMetadata.Info` content doesn't get updated to match the `IcyMetadata.Headers` content. In testing, the `IcyMetadata.Headers` always looks correct. However, when a stream's `IcyMetadata.Headers.metadataInterval` is _**-1**_, the `IcyMetadata.Info` served up appears to be the content served up by the previous `JustAudio` stream. This is the only condition I've found where this happens.
+Certain `IcyMetadata` streams served up by `JustAudio` can become out-of-sync such that the `IcyMetadata.Info` content doesn't get updated to match the `IcyMetadata.Headers` content. In testing, the `IcyMetadata.Headers` always looked correct. However, when a stream's `IcyMetadata.Headers.metadataInterval` was _**-1**_, the `IcyMetadata.Info` served up appeared to be the content of the previous `JustAudio` stream. This is the only condition I've found where this happens.
 
 ## Steps to reproduce:
-This test project automates the following steps.
+*Note: The flutter project [metadata_interval_bug](https://github.com/mrelac/metadata_interval_bug) provides an easy way to visualize this bug.*
+Steps are:
 1. Using `JustAudio` with a component that dumps `IcyMetadata` content, play radio station **WETF** at
  https://ssl-proxy.icastcenter.com/get.php?type=Icecast&server=199.180.72.2&port=9007&mount=/stream&data=mp3.
 1. Look at the IcyMetadata headers and info. Note that:
